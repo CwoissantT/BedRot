@@ -1,9 +1,9 @@
 ﻿# The script of the game goes in this file.
 
-# Declare characters used by this game. The color argument colorizes the
-# name of the character.
 
-define e = Character("Eileen")
+define f = Character("Fairy")
+define p = Character("[name]")
+
 
 # Testing git
 
@@ -15,19 +15,21 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
 
-    scene bg room
+    scene bedroom
 
-    # This shows a character sprite. A placeholder is used, but you can
-    # replace it by adding a file named "eileen happy.png" to the images
-    # directory.
+    # MEET DA FAIRY 
 
     show eileen happy
 
-    # These display lines of dialogue.
+    f "Oh! I forgot to ask, what's your name?"
 
-    e "You've created a new Ren'Py game."
+    name = renpy.input("Your name, please!:")
 
-    e "Once you add a story, pictures, and music, you can release it to the world!"
+    f "Nice to meet you formally, [name]!"
+    # TODO: Extra dialogue if you put in a blank string
+
+
+    
 
     # This ends the game.
 
