@@ -4,6 +4,7 @@
 define f = Character("Fairy")
 define p = Character("[name]")
 
+$ napCount = 0;
 
 # Testing git
 
@@ -33,19 +34,29 @@ label start:
     
 
     # Fairy goes into explaining how to play the game. Then we start the phase 1
-    
-    jump nap
+    jump phase1
 
     label phase1:
-        return
+        
+        jump phase2
+
     label phase2:
-        return
+        jump phase3
+
     label phase3:
-        return
+        jump end
+
 
     
     label end:
+        if(napCount == 3):
+            jump badEnd
+        
         return
-
+    
+    label badEnd:
+        "Death shall take thee!!!!!"
+        return
+    
     # This ends the game.
     return

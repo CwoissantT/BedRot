@@ -7,25 +7,23 @@ label nap:
     p "I don't care..."
 
     "You take a nap."
+    $ napCount++
 
     return
 
 
 label clean: 
     # "Roll Dice" to choose event, it's a val
+    # TODO: Improve random number gen
+    $ event = renpy.random.choice([1, 2, 3])
 
-    #
-    # switch(){
-    #    a:
-        # good thing: Found lost book
-        # change values
-        # fun flavour
-    #    b:
-        # bad thing: Skid marks
-        # change values
-        # sad flavour
-    #    c:
-        
-    #}
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
     
     return
