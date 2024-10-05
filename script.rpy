@@ -37,14 +37,86 @@ label start:
     jump phase1
 
     label phase1:
+
+        menu:
+            f "Alrighty, what do you want to do?"
+
+            "Drink water":
+                jump phase1End;
+                
+            "Clean":
+                jump phase1End;
+
+            "Open window":
+                jump phase1End;
+            
+            "Scroll Reels":
+                jump phase1End;
+
+            "Nap":
+                jump nap
+                $ napCount += 1
         
-        jump phase2
+        label phase1End:
+            jump phase2
 
     label phase2:
-        jump phase3
+        menu:
+            f "Alrighty, what do you want to do?"
+
+            "Use the Restroom":
+                jump phase2End
+                
+            "Take a Shower":
+                jump phase2End
+
+            "Wash your hair in the sink":
+                f "Great choice! Even if it's not good as washing your hair, it still makes you feel good!"
+                jump phase2End
+
+            "Open window":
+                jump phase2End
+            
+            "Vent on Twitter":
+                jump phase2End
+
+            "Nap":
+                jump nap
+                $ napCount += 1
+
+        label phase2End:
+            jump phase3
 
     label phase3:
-        jump end
+        if(napCount < 2):
+            menu:
+                f "Alrighty, what do you want to do?"
+
+                "Cook":
+                    jump phase3End
+                    
+                "Wash Dishes":
+                    jump phase3End
+
+                "Order Takeout":
+                    jump phase3End
+                
+                "Eat a snack":
+                    jump phase3End
+
+                "Nap":
+                    jump nap
+                    $ napCount += 1
+        else: # NapCount is too high to do anything
+            menu:
+                # fairy sad
+                f "Do... you want to do anything?" 
+                "Nap":
+                    jump nap
+                    $ napCount += 1
+                    f "..."
+        label phase3End:
+            jump end
 
 
     

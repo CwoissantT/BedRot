@@ -7,15 +7,15 @@ label nap:
     p "I don't care..."
 
     "You take a nap."
-    $ napCount++
-
     return
 
+label scrollReels:
+    return
 
-label clean: 
+label cleanRoom: 
     # "Roll Dice" to choose event, it's a val
     # TODO: Improve random number gen
-    $ event = renpy.random.choice([1, 2, 3])
+    $ event = renpy.random.randint(1,3)
 
     f "Oh, you're going to clean? That's a great idea!"
     # Possible events
@@ -26,4 +26,37 @@ label clean:
     else:
         "Event 3"
     
+    return
+
+label shower:
+    $ event = renpy.random.randint(1,3)
+
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
+label sink:
+    $ event = renpy.random.randint(1,2)
+
+    # Possible events
+    if event == 1:
+        "Event 1"
+    else:
+        "Event 2"
+    return
+
+label toilet:
+    $ event = renpy.random.randint(1,3)
+
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
     return
