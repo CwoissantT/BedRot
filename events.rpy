@@ -150,6 +150,7 @@ label twitter:
 label cook:
     $ event = renpy.random.randint(1,3)
 
+    play sound "<from 0 to 3>foodSizzling.mp3"
     # Possible events
     if event == 1:
         "I wanted something to eat but only had ingredients."
@@ -176,10 +177,12 @@ label dishes:
         $ pp.update(2, -3, 0)
     elif event == 2:
         "The dishes I have just kept piling up, I sometimes ask myself where they come from as there's so many."
+        play sound "<from 8 to 12>takeShower.mp3"
         $ pp.update(3, -3, 0)
     else:
         "I really didn't want to do the dishes today as it was starting to rise higher than the sink."
-        "... So I didn't, and just let the dishwasher do all the work."
+        "... So I didn't, and just let the dishwasher do all the work. >:)"
+        f "Oooh, how innovative~!"
         $ pp.update(4, -2, 0)
     return
 
@@ -197,6 +200,7 @@ label takeout:
         "I wanted to try some Shendy’s from doorbash. My sandwich had a whole bite taken out of it..."
         f "That was me, sorry..."
 
+        play sound "orderTakeout.mp3"
         $ pp.update(3, -2, 1)
     return
 
