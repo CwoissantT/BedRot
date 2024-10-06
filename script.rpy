@@ -4,7 +4,13 @@
 define f = Character("Fairy")
 define p = Character("[name]")
 
+# Variables
 default napCount = 0
+default joy = false
+
+# Stats
+default willpower = 3
+default health = 2
 
 # Testing git
 
@@ -62,14 +68,17 @@ label start:
             jump phase2
 
     label phase2:
-        f "Let's start phase 2!"
+        f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
+        f "It'd be a shame to stay in bed, so..."
         menu:
-            f "Alrighty, what do you want to do?"
+            f "What do you wanna do?"
 
             "Use the Restroom":
+                scene bathroom
                 jump phase2End
                 
             "Take a Shower":
+                scene bathroom
                 jump phase2End
 
             "Wash your hair in the sink":
@@ -101,17 +110,20 @@ label start:
                     f "..."
                     jump phase3End
             
-        else: # NapCount is too high to do anything
+        else: # NapCount is high enough
             menu:
                 f "Alrighty, what do you want to do?"
 
                 "Cook":
+                    scene kitchen
                     jump phase3End
                     
                 "Wash Dishes":
+                    scene kitchen
                     jump phase3End
 
                 "Order Takeout":
+                    scene kitchen
                     jump phase3End
                 
                 "Eat a snack":
@@ -130,12 +142,18 @@ label start:
     label end:
         if(napCount == 3):
             jump badEnd
+        elif(joy):
+            jump goodEnd
+        else:
+            jump midEnd
         
     
-    
+    label goodEnd:
+        return
     label badEnd:
         "Death shall take thee!!!!!"
         return
-    
+    label midEnd:
+        return
     # This ends the game.
     return
