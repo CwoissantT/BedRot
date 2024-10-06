@@ -30,6 +30,43 @@ define config.version = "1.0"
 ## triple-quotes, and leave a blank line between paragraphs.
 
 define gui.about = _p("""
+    Creator Credits:
+    
+        Jellyfish Nguyen
+        Jacob Precourt
+        Shoe Rahman
+        Tejpaul Sumair
+
+    BGM Credits:
+        Main screen: Strawberry Walk (Ichinose Music, YT)
+        Fairy Theme: 塩コショウはかけましょう (Ichinose Music, YT)
+
+        Day 1:
+        "Dances and Dames" Kevin MacLeod (incompetech.com)
+        Licensed under Creative Commons: By Attribution 4.0 License
+        http://creativecommons.org/licenses/by/4.0/
+
+        Day 2:
+            "I Knew a Guy" Kevin MacLeod (incompetech.com)
+            Licensed under Creative Commons: By Attribution 4.0 License
+            http://creativecommons.org/licenses/by/4.0/
+
+            "Backed Vibes (clean)" Kevin MacLeod (incompetech.com)
+            Licensed under Creative Commons: By Attribution 4.0 License
+            http://creativecommons.org/licenses/by/4.0/
+
+        Good Ending:
+            "In Your Arms" Kevin MacLeod (incompetech.com)
+            Licensed under Creative Commons: By Attribution 4.0 License
+            http://creativecommons.org/licenses/by/4.0/
+
+        Alright Ending:
+        "Jazz Brunch " Kevin MacLeod (incompetech.com)
+        Licensed under Creative Commons: By Attribution 4.0 License
+        http://creativecommons.org/licenses/by/4.0/
+
+    Thank you so much for playing!
+
 """)
 
 
@@ -62,7 +99,7 @@ define config.has_voice = True
 ## the player is at the main menu. This file will continue playing into the
 ## game, until it is stopped or another file is played.
 
-# define config.main_menu_music = "main-menu-theme.ogg"
+define config.main_menu_music = "Strawberry-Walk.mp3"
 
 
 ## Transitions #################################################################

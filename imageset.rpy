@@ -1,2 +1,6 @@
 image side neutral = "side fairy neutral"
+image side happy = "side fairy happy"
+image side nervous = "side fairy nervous"
 image side disappointed = "side fairy disappointed"
+image side shy = "side fairy shy"
+image side suprised = "side fairy suprised"

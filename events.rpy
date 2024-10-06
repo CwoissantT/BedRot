@@ -13,7 +13,7 @@ label nap:
 label window:
     $ event = renpy.random.randint(1,3)
 
-    play sound "openWindow.wav"
+    play sound "openWindow.mp3"
 
     # Possible events
     if event == 1:
@@ -48,22 +48,12 @@ label drinkWater:
     return
 
 label cleanRoom: 
-    $ event = renpy.random.randint(1,3)
+    $ n = 0
 
-    # Possible events
-    if event == 1:
-        "I was looking through my clothes on the floor. Some were clean, some of my underwear? Not so much… "
-        $ pp.update(1, -2, 0)
-    elif event == 2:
-        "There was a weird smell coming from my room."
-        "At first, I thought it was my clothes, then the dishes, but then I found a ramen cup, and under that cup an army of cockroaches."
-        $ pp.update(1, -2, 0)
-    else:
-        "There were wrappers all over the floor that were starting to get in the way."
-        "Took me 30 minutes just to find all the wrappers."
-        f "Your room is looking much better, though!"
+    call screen send_detective_screen
 
-        $ pp.update(2, -2, 0)
+    f "Amazing job!"
+    $ pp.update(2, -2, 0)
     
     return
     
@@ -86,7 +76,7 @@ label scrollReels:
 label toilet:
     "It is time to relieve myself."
     #sfx toilet
-    play sound "<from 0 to 4> toiletFlush.mp3"
+    #play sound "<from 0 to 4> toiletFlush.mp3"
     "………………………… gross" # TODO: pause in the middle?
     "at least my bladder doesn't hurt anymore."
     $ pp.update(3, -1, 0)
@@ -99,11 +89,11 @@ label shower:
     if event == 1:
         "I needed to take a shower, finally."
         "I wanted to feel something, so I put the shower to its hottest setting. "
-        play sound "<from 0 to 2>takeShower.wav"
+        play sound "<from 0 to 2>takeShower.mp3"
     else:
         "It felt nice having my skin soak up the warm water around me."
         "I should do this more often!"
-        play sound "<from 0 to 2>takeShower.wav"
+        play sound "<from 0 to 2>takeShower.mp3"
     
     $ pp.update(3, -2, 0)
     
@@ -235,7 +225,7 @@ label hobby:
     else:
         "I remember I used to play the flute in middle school. I think I could freshen up on my skills!"
         f "You sound amazing!"
-    $ pp.update(0, -1, 2)
+    $ pp.update(0, -1, 1)
     return
 
     

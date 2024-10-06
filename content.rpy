@@ -73,3 +73,127 @@ screen status_ui:
             bar value pp.joy range pp.maxJ:  # Progress bar for joy (0 to 100)
                 xmaximum 300
 
+default shirt1 = Drag(
+                        d = im.Scale("shirtee.png", 100, 100), 
+                        drag_name = "shirt", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default shirt2 = Drag(
+                        d = im.Scale("shirtee.png", 100, 100), 
+                        drag_name = "shirt", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default shirt3 = Drag(
+                        d = im.Scale("shirtee.png", 100, 100), 
+                        drag_name = "shirt", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default shirt4 = Drag(
+                        d = im.Scale("shirtee.png", 100, 100), 
+                        drag_name = "shirt", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default shirt5 = Drag(
+                        d = im.Scale("shirtee.png", 100, 100), 
+                        drag_name = "shirt", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default paper1 = Drag(
+                        d = im.Scale("paper.png", 100, 100), 
+                        drag_name = "paper", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+                    )
+default paper2 = Drag(
+                        d = im.Scale("paper.png", 100, 100), 
+                        drag_name = "paper", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+)
+default paper3 = Drag(
+                        d = im.Scale("paper.png", 100, 100), 
+                        drag_name = "paper", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+)
+default paper4 = Drag(
+                        d = im.Scale("paper.png", 100, 100), 
+                        drag_name = "paper", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+)
+default paper5 = Drag(
+                        d = im.Scale("paper.png", 100, 100), 
+                        drag_name = "paper", 
+                        drag_raise = True, 
+                        dragged = detective_dragged, 
+                        align = (renpy.random.randint(1, 6) / 10, renpy.random.randint(1, 10) / 10)
+)
+
+default trash = Drag(
+                        d = im.Scale("trashc.png", 125, 125), 
+                        drag_name = "trash", 
+                        draggable = False, 
+                        drag_raise = True, 
+                        align = (0.8, 0.8))
+default basket = Drag(
+                        d = im.Scale("basket.png", 125, 125), 
+                        drag_name = "basket", 
+                        draggable = False, 
+                        drag_raise = True, 
+                        align = (0.8, 0.3))
+
+default groupedDrag = DragGroup(shirt1, shirt2, shirt3, shirt4, shirt5, paper1, paper2, paper3, paper4, paper5, trash, basket)
+default n = 0
+
+init python:
+
+    def detective_dragged(drag, drop):
+        global n
+
+        if drop is not None:
+            if drag[0].drag_name == "shirt":
+                if (drop.drag_name == "basket"):
+                    drag[0].snap(drop.x, drop.y)
+                    groupedDrag.remove(drag[0])
+                else:
+                    n -= 1
+            elif drag[0].drag_name == "paper":
+                if (drop.drag_name == "trash"):
+                    drag[0].snap(drop.x, drop.y)
+                    groupedDrag.remove(drag[0])
+                else:
+                    n -= 1
+            n += 1
+            
+        if (n == 10): return True
+
+screen send_detective_screen:
+
+    # A map as background.
+    add im.Blur("bedroom.png", 10) xpos 0 ypos 0
+    
+    # Now add a smaller UI in the center with margin from the sides.
+    frame:
+        style "default"  # You can define a style for the white UI frame here.
+        background "#696969"  # White background for the UI box.
+        xysize (800, 600)  # Define the size of the white UI.
+        align (0.5, 0.5)  # Center the frame in the screen.
+
+        # Add the draggroup inside the white UI frame.
+        
+        add groupedDrag
