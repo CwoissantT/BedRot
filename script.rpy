@@ -3,16 +3,14 @@
 
 define f = Character("Fairy", image="fairy")
 define p = Character("[name]")
-define pp = MC(p, 2, 3, 0)
+define pp = MC(p, 2, 3, 0, 3, 0)
 
 # Variables
 default napCount = 0 
 default peed = False
-
-default phaseH = 15
-default phaseW = 3
-default phaseJ = 0
-
+default trauma = False
+default parched = True
+default showered = False
 
 
 # The game starts here.
@@ -26,9 +24,7 @@ label start:
     scene bedroom
 
     # MEET DA FAIRY 
-
-    
-
+    show fairy happy
     f "Oh! I forgot to ask, what's your name?"
 
 
@@ -41,9 +37,8 @@ label start:
     
 
     # Fairy goes into explaining how to play the game. Then we start the phase 1
-    $ pp.setMaxPhase(phaseH, phaseW, phaseJ)
-    $ pp.update(2, phaseW, phaseJ)
     scene bedroom
+    $ pp.setPhase(2, 3, 0)
     jump phase1
     
 
@@ -52,23 +47,24 @@ label start:
         
 
         menu:
-            f neutral "Alrighty, what do you want to do?"
+            f "Alrighty, what do you want to do?"
 
-            "Drink water" if pp.willpower > 1:
+            "Drink water" if pp.willpower > 0 and parched:
+                $ parched = False
                 f "Oh, you're thirsty aren't you?"
                 f "Now... what is there to drink around here...?"
                 call drinkWater
                 
-            "Clean" if pp.willpower > 2:
+            "Clean" if pp.willpower > 1:
                 f "Oh, you're going to clean? That's a great idea!"
                 call cleanRoom
 
-            "Open window" if pp.willpower > 1:
+            "Open window" if pp.willpower > 0:
                 f "..."
                 call window
             
             "Scroll Reels" if pp.willpower > 1:
-                f shy "... Are you sure? I mean, you could always-"
+                f "... Are you sure? I mean, you could always-"
                 p "I'm fine."
 
                 call scrollReels
@@ -76,6 +72,9 @@ label start:
             "Nap":
                 call nap
                 $ napCount += 1
+                # Condition after character naps away
+                $ pp.maxW = pp.health - 1
+                $ pp.setPhase(pp.health, pp.maxW, 0)
                 jump phase2
         
         label phase1End:
@@ -84,19 +83,22 @@ label start:
             else:
                 hide screen status_ui
                 scene black with fade
+
                 p "I fell asleep..."
                 scene bedroom
                 f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
                 f "It'd be a shame to stay in bed, so..."
 
-                
-                $ pp.setMaxPhase(phaseH, phaseH + pp.health, phaseJ)
-                $ pp.update(pp.health, pp.maxE, phaseJ)
+                # Condition if character does not nap away
+                $ pp.maxW = pp.health + 3
+                $ pp.setPhase(pp.health, pp.maxW, 0)
                 jump phase2
 
 
     label phase2:
         show screen status_ui
+
+        
 
         menu:
             f "What do you wanna do?"
@@ -108,24 +110,31 @@ label start:
                 scene bathroom
                 call toilet
                 
-            "Take a Shower" if pp.willpower >= 2:
+            "Take a Shower" if pp.willpower >= 2 and not showered:
+                f "... Um."
+                f "I'll just wait outside."
                 scene bathroom
                 call shower
 
-            "Wash your hair in the sink" if pp.willpower > 1:
+            "Wash your hair in the sink" if pp.willpower > 1 and not showered:
                 f "Great choice! Even if it's not good as washing your hair, it still makes you feel good!"
                 call sink
 
             "Open the window" if pp.willpower > 1:
+                f "..."
                 scene bedroom
                 call window
             
-            "Go on Social Media" if pp.willpower > 1:
-                jump phase2End
+            "Go on Social Media" if pp.willpower > 1 and not trauma:
+                f "Oh... well, I guess if you're not going for too long."
+                call twitter
+            
 
             "Nap":
                 call nap
                 $ napCount += 1
+                $ pp.maxW = pp.health - 1 # if you nap the phase away
+                $ pp.setPhase(pp.health, pp.maxW, 0)
                 jump phase3
 
         label phase2End:
@@ -133,18 +142,24 @@ label start:
                 jump phase2
             else:
                 scene bedroom
-                f "Up up up! It's evening, and I think we should try and go to the kitchen."
+                f "Up up up! It's evening, and I think we should try and go to the kitchen!"
+
+                $ pp.maxW = pp.health + 3 # If character doesn't nap the phase away
+                if trauma:
+                    $ pp.maxW = 3
+                $ pp.setPhase(pp.health, pp.maxW, 0)
                 jump phase3
 
     label phase3:
-        $ hungry = Talse
+        
+        $ hungry = True
 
         if napCount == 2:
             scene bedroom 
 
             menu:
                 # fairy sad
-                f "Do... you want to do anything?" 
+                f shy "Do... you want to do anything?" 
                 "Nap":
                     call nap
                     $ napCount += 1
@@ -152,10 +167,11 @@ label start:
                     jump end
             
         else: # NapCount is high enough
+            show screen status_ui
             menu:
                 f "Choose whatever you wanna do!"
 
-                "Cook" if pp.willpower > 4 and hungry:
+                "Cook" if pp.willpower > 7 and hungry:
                     scene kitchen
                     call cook
                     
@@ -174,23 +190,25 @@ label start:
                 "Nap":
                     call nap
                     $ napCount += 1
+                    hide screen status_ui
                     jump end
 
         label phase3End:
             if pp.willpower > 0:
                 jump phase3
             else:
+                hide screen status_ui
                 jump end
 
 
     
     label end:
-        if(napCount == 3):
-            jump badEnd
-        elif(pp.joy > 5):
+        if(pp.joy > 5):
             jump goodEnd
-        else:
+        elif(pp.health > 5):
             jump midEnd
+        else:
+            jump badEnd
         
     
     label goodEnd:
@@ -202,6 +220,8 @@ label start:
         f "I just know you'll find yourself in a better place, soon. Take care!"
         return
     label badEnd:
+        hide screen status_ui
+        scene black with fade 
         "It\'s over…… it\'s finally over. I dont need to struggle anymore."
         "The numbness will be gone soon and I can be at peace."
         f "No, no! Please- don't disappear, [name]! You can still go on..."

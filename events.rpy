@@ -3,6 +3,7 @@
 # Idk how to implement yet, but for now just write scenarios. They can either be voiced by fairy or you
 
 label nap:
+    scene bedroom
     f shy "E-eh? Are you sure...? I could-"
     p "I don't care..."
 
@@ -123,7 +124,9 @@ label twitter:
         "I saw someone I knew from high school on social media getting married."
         "Meanwhile, the last thing I did was watch Jojo’s weird journey while eating cup ramen..."
         "Oh my god, am I wasting my life...?"
+        f shy "Please don't say that about yourself...! I promise you, you're doing enough!"
         $ pp.update(-3, -100, 0)
+        $ trauma = True
     elif event == 2:
         "I feel as if I spent hours on Instagram just scrolling."
         "I don't know when, but I stumbled upon some cute puppies. Maybe I should get one."
@@ -142,15 +145,15 @@ label cook:
     if event == 1:
         "I wanted something to eat but only had ingredients."
         "Being forced to cook is annoying but at least I can enjoy the smell."
-        $ pp.update(6, -4, 3)
+        $ pp.update(6, -7, 3)
     elif event == 2:
         "I feel as if I only just started cooking before the fire alarm went off!"
         "ALL I DID WAS BOIL WATER!" # TODO: with vpunch
-        $ pp.update(2, -4, 2)
+        $ pp.update(2, -7, 2)
     else:
         "It’s been a while since I last cooked..."
         "Thankfully I remember how to make the homemade chili my sister taught me."
-        $ pp.update(6, -4, 4)
+        $ pp.update(6, -7, 4)
     return
 
 label dishes:
@@ -182,8 +185,8 @@ label takeout:
         "I saw I had a little spending money left and there was a 2-for-1 deal at Baco Tell."
         "My toilet will have a field day tomorrow. ^-^"
     else:
-        "I wanted to try some Bendy’s from doordash. My sandwich had a whole bite taken out of it..."
-        #TODO: f "That was me, sorry..."
+        "I wanted to try some Shendy’s from doorbash. My sandwich had a whole bite taken out of it..."
+        f "That was me, sorry..."
 
         $ pp.update(3, -2, 1)
     return
@@ -193,12 +196,33 @@ label snack:
 
     # Possible events
     if event == 1:
-        "Settled on some yogurt, it's a bit old and is more cheese than yogurt at this point."
+        "I decided on something quick to eat, some chips always hit the spot."
+        $ pp.update(1, -1, 2)
     elif event == 2:
         "Settled on some yogurt, it's a bit old and is more cheese than yogurt at this point."
+        $ pp.update(1, -1, 1)
     else:
-        "Event 3"
+        "I didn't have time to cook much today so I just settled on a bowl of cereal."
+        "Breakfast is important, no matter the time of day."
+        $ pp.update(2, -1, 1)
+    
+    return
 
+label hobby:
+    $ event = renpy.random.randint(1,3)
+
+    # Possible events
+    if event == 1:
+        "I grabbed an old book off of my shelf, I haven\'t read it in awhile."
+        "I wonder if im still where I left off..."
+    elif event == 2:
+        "My sketchbook is filled with old doodles of funny little creatures."
+        "Maybe I can make them dance!"
+        f "Hey... why do I look like one of those..."
+    else:
+        "I remember I used to play the flute in middle school. I think I could freshen up on my skills!"
+        f "You sound amazing!"
+    $ pp.update(0, -1, 2)
     return
 
     

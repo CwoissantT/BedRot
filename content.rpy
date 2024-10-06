@@ -24,27 +24,25 @@ init python:
         renpy.restart_interaction()
 
     class MC:
-        maxH = 0
-        maxE = 0
-        maxJ = 0
-
-        def __init__(self, character: Character, health: int, willpower: int, joy: int):
+        def __init__(self, character: Character, health: int, willpower: int, joy: int, maxW: int, maxJ: int):
             # Initialize character attributes
             self.c = character
             self.health = health
             self.willpower = willpower
             self.joy = joy
-        
-        def setMaxPhase(self, maxH, maxE, maxJ):
-            MC.maxH = maxH
-            MC.maxE = maxE
-            MC.maxJ = maxJ
+            self.maxW = maxW
+            self.maxJ = maxJ
 
         def update(self, value_h: int = 0, value_e: int = 0, value_j: int = 0):
 
-            self.health = max(0, min(MC.maxH, self.health + value_h))
-            self.willpower = max(0, min(MC.maxE, self.willpower + value_e))
-            self.joy = max(0, min(MC.maxJ, self.joy + value_j))
+            self.health = max(0, min(20, self.health + value_h))
+            self.willpower = max(0, min(self.maxW, self.willpower + value_e))
+            self.joy = max(0, min(10, self.joy + value_j))
+        
+        def setPhase(self, health: int = 0, willpower: int = 0, joy: int = 0):
+            self.health = health
+            self.willpower = willpower
+            self.joy = joy
 
 screen clock():
     timer 2.00 action update_clock repeat True
@@ -60,13 +58,13 @@ screen status_ui:
             # $ ratioH = pp.health / MC.maxH
             text "Health: [pp.health]":
                 size 22
-            bar value pp.health range pp.maxH:  # Progress bar for hygiene (0 to 100)
+            bar value pp.health range 20:  # Progress bar for hygiene (0 to 100)
                 xmaximum 300
             
             # Hunger Bar
             text "Willpower: [pp.willpower]":
                 size 22  # Adjust the font size
-            bar value pp.willpower range pp.maxE:  # Progress bar for hunger (0 to 100)
+            bar value pp.willpower range pp.maxW:  # Progress bar for hunger (0 to 100)
                 xmaximum 300  # Width of the progress bar
             
             # Joy Bar
