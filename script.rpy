@@ -3,13 +3,15 @@
 
 define f = Character("Fairy")
 define p = Character("[name]")
+define pp = MC(p, 2, 3, 0)
 
 # Variables
 default napCount = 0 
 
-# Stats
-default willpower = 3
-default health = 2
+default phaseH = 15
+default phaseW = 3
+default phaseJ = 0
+
 
 
 # The game starts here.
@@ -40,10 +42,13 @@ label start:
     
 
     # Fairy goes into explaining how to play the game. Then we start the phase 1
+    $ pp.setMaxPhase(phaseH, phaseW, phaseJ)
     jump phase1
+    
 
     label phase1:
         scene bedroom
+        show screen status_ui
 
         menu:
             f "Alrighty, what do you want to do?"
@@ -59,7 +64,10 @@ label start:
                 jump phase1End
             
             "Scroll Reels":
-                jump phase1End
+                f "... Are you sure? I mean, you could always-"
+                p "I'm fine."
+                
+                call scrollReels
 
             "Nap":
                 call nap
@@ -67,16 +75,24 @@ label start:
                 jump phase2
         
         label phase1End:
-            if willpower > 0:
+            if pp.willpower > 0:
                 jump phase1
             else:
+                hide screen status_ui
+                scene black with fade
+                p "I fell asleep..."
+                scene bedroom
                 f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
                 f "It'd be a shame to stay in bed, so..."
+
+                
+                $ pp.setMaxPhase(phaseH, phaseH + pp.health, maxJ)
+                $ pp.update(pp.maxH, pp.maxE, maxJ)
                 jump phase2
 
 
     label phase2:
-
+        show screen status_ui
         menu:
             f "What do you wanna do?"
 
@@ -107,7 +123,7 @@ label start:
                 jump phase3
 
         label phase2End:
-            if willpower > 0:
+            if pp.willpower > 0:
                 jump phase2
             else:
                 f "Up up up! It's evening, and I think we should try and go to the kitchen."
@@ -153,7 +169,7 @@ label start:
                     jump end
 
         label phase3End:
-            if willpower > 0:
+            if pp.willpower > 0:
                 jump phase3
             else:
                 jump end
@@ -163,7 +179,7 @@ label start:
     label end:
         if(napCount == 3):
             jump badEnd
-        elif(joy):
+        elif(p.joy > 5):
             jump goodEnd
         else:
             jump midEnd

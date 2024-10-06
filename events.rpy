@@ -31,14 +31,16 @@ label cleanRoom:
 label scrollReels:
     $ event = renpy.random.randint(1,3)
 
-    f "Oh, you're going to clean? That's a great idea!"
     # Possible events
     if event == 1:
-        "Event 1"
+        "I decided to spend my time scrolling reels. I keep getting reels of orange cat behavior."
     elif event == 2:
-        "Event 2"
+        "I started scrolling reels, I don\’t remember how I started, but I did. I snapped out of it when I saw a clip from the Hawk Tuah podcast."
     else:
-        "Event 3"
+        "My friend sent me a reel, I responded to it, but I needed to see more and more..."
+    
+    $ pp.update(0, -1, 0)
+
     return
     
 label toilet:
@@ -46,7 +48,9 @@ label toilet:
 
     # Possible events
     if event == 1:
+
         "Event 1"
+        
     elif event == 2:
         "Event 2"
     else:
