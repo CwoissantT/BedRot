@@ -36,10 +36,10 @@ label drinkWater:
     # Possible events
     if event == 1:
         "I wanted something to drink so I got some orange juice from the fridge. I was able to find my favorite my bluey cup!"
-        play sound "drinkingSound.mp3"
+        play sound "<from 0 to 3>drinkingSound.mp3"
     elif event == 2:
         "My mouth feels so parched, when was the last time I drank water?"
-        play sound "drinkingSound.mp3"
+        play sound "<from 0 to 3>drinkingSound.mp3"
     else:
         "I got my favorite drink, Strawberry Lemonade. It tastes like summer all over again! Yum!"
         play sound "<from 0 to 3>drinkingSound.mp3"
@@ -99,11 +99,11 @@ label shower:
     if event == 1:
         "I needed to take a shower, finally."
         "I wanted to feel something, so I put the shower to its hottest setting. "
-        play sound "<from 0 to 2>takeShower.mp3"
+        play sound "<from 0 to 2>takeShower.wav"
     else:
         "It felt nice having my skin soak up the warm water around me."
         "I should do this more often!"
-        play sound "<from 0 to 2>takeShower.mp3"
+        play sound "<from 0 to 2>takeShower.wav"
     
     $ pp.update(3, -2, 0)
     
@@ -177,7 +177,7 @@ label dishes:
         $ pp.update(2, -3, 0)
     elif event == 2:
         "The dishes I have just kept piling up, I sometimes ask myself where they come from as there's so many."
-        play sound "<from 8 to 12>takeShower.mp3"
+        play sound "<from 8 to 12>washDishes.mp3"
         $ pp.update(3, -3, 0)
     else:
         "I really didn't want to do the dishes today as it was starting to rise higher than the sink."

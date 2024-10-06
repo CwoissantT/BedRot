@@ -22,7 +22,7 @@ label start:
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
 
-    scene bedroom
+    scene closedcurtain
 
     # MEET DA FAIRY 
     show fairy happy
@@ -38,7 +38,7 @@ label start:
     
 
     # Fairy goes into explaining how to play the game. Then we start the phase 1
-    scene bedroom
+    scene closedcurtain
     $ pp.setPhase(2, 3, 0)
     play music "Dances and Dames.mp3"
     jump phase1
@@ -88,7 +88,7 @@ label start:
                 scene black with fade
 
                 p "I fell asleep..."
-                scene bedroom
+                scene closedcurtain
                 f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
                 f "It'd be a shame to stay in bed, so..."
 
@@ -126,7 +126,7 @@ label start:
 
             "Open the window" if pp.willpower > 1:
                 f "..."
-                scene bedroom
+                scene closedcurtain
                 call window
             
             "Go on Social Media" if pp.willpower > 1 and not trauma:
@@ -138,19 +138,25 @@ label start:
                 call nap
                 $ napCount += 1
                 $ pp.maxW = pp.health - 1 # if you nap the phase away
+                scene closedcurtain
+
                 $ pp.setPhase(pp.health, pp.maxW, 0)
+
+                play music "Upbeat.mp3"
                 jump phase3
 
         label phase2End:
             if pp.willpower > 0:
                 jump phase2
             else:
-                scene bedroom
+                scene closedcurtain
                 f happy "Up up up! It's evening, and I think we should try and go to the kitchen!"
 
                 $ pp.maxW = pp.health + 3 # If character doesn't nap the phase away
                 if trauma:
                     $ pp.maxW = 3
+                
+                play music "Upbeat.mp3"
                 $ pp.setPhase(pp.health, pp.maxW, 0)
                 jump phase3
 
@@ -158,7 +164,8 @@ label start:
         
 
         if napCount == 2:
-            scene bedroom 
+            play music "Somber.mp3"
+            scene closedcurtain 
 
             menu:
                 # fairy sad
@@ -189,6 +196,10 @@ label start:
                 "Eat a snack" if pp.willpower > 2:
                     scene kitchen
                     call snack
+                
+                "Try a Hobby" if pp.willpower > 2:
+                    scene bedroom
+                    call hobby
 
                 "Nap":
                     call nap
