@@ -8,11 +8,9 @@ label nap:
 
     "You take a nap."
     return
-    
 
-label scrollReels:
+label drinkWater:
     return
-    
 
 label cleanRoom: 
     # "Roll Dice" to choose event, it's a val
@@ -30,7 +28,30 @@ label cleanRoom:
     
     return
     
+label scrollReels:
+    $ event = renpy.random.randint(1,3)
+
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
     
+label toilet:
+    $ event = renpy.random.randint(1,3)
+
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
 
 label shower:
     $ event = renpy.random.randint(1,3)
@@ -46,20 +67,23 @@ label shower:
     return
     
 label sink:
-    $ event = renpy.random.randint(1,2)
+    $ event = renpy.random.randint(1,3)
 
+    f "Oh, you're going to clean? That's a great idea!"
     # Possible events
     if event == 1:
         "Event 1"
-    else:
+    elif event == 2:
         "Event 2"
+    else:
+        "Event 3"
     
     return
     
-
-label toilet:
+label twitter:
     $ event = renpy.random.randint(1,3)
 
+    f "Oh, you're going to clean? That's a great idea!"
     # Possible events
     if event == 1:
         "Event 1"
@@ -68,3 +92,59 @@ label toilet:
     else:
         "Event 3"
     return
+
+label cook:
+    $ event = renpy.random.randint(1,3)
+
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
+
+label dishes:
+    $ event = renpy.random.randint(1,3)
+
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
+
+label takeout:
+    $ event = renpy.random.randint(1,3)
+
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+    return
+
+label snack:
+    $ event = renpy.random.randint(1,3)
+
+    f "Oh, you're going to clean? That's a great idea!"
+    # Possible events
+    if event == 1:
+        "Event 1"
+    elif event == 2:
+        "Event 2"
+    else:
+        "Event 3"
+
+    return
+
+    
+

@@ -5,15 +5,18 @@ define f = Character("Fairy")
 define p = Character("[name]")
 
 # Variables
-default napCount = 0
+default napCount = 0 
 
 # Stats
+default willpower = 3
+default health = 2
 
-# Testing git
 
 # The game starts here.
 
 label start:
+
+    $ drank_water = False
 
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
@@ -40,12 +43,14 @@ label start:
     jump phase1
 
     label phase1:
+        scene bedroom
 
         menu:
             f "Alrighty, what do you want to do?"
 
             "Drink water":
-                jump phase1End
+                $ drank_water = True
+                call drinkWater
                 
             "Clean":
                 jump phase1End
@@ -59,22 +64,25 @@ label start:
             "Nap":
                 call nap
                 $ napCount += 1
-                jump phase1End
+                jump phase2
         
         label phase1End:
             if willpower > 0:
                 jump phase1
             else:
+                f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
+                f "It'd be a shame to stay in bed, so..."
                 jump phase2
+
 
     label phase2:
 
-        f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
-        f "It'd be a shame to stay in bed, so..."
         menu:
             f "What do you wanna do?"
 
             "Use the Restroom":
+                f "Go piss, girl!"
+                f "I'll... stay here. I won't peek, I promise!"
                 scene bathroom
                 jump phase2End
                 
@@ -86,7 +94,8 @@ label start:
                 f "Great choice! Even if it's not good as washing your hair, it still makes you feel good!"
                 jump phase2End
 
-            "Open window":
+            "Open the window":
+                scene bedroom
                 jump phase2End
             
             "Vent on Twitter":
@@ -95,17 +104,20 @@ label start:
             "Nap":
                 call nap
                 $ napCount += 1
-                jump phase2End
+                jump phase3
 
         label phase2End:
             if willpower > 0:
                 jump phase2
             else:
+                f "Up up up! It's evening, and I think we should try and go to the kitchen."
                 jump phase3
 
     label phase3:
 
         if napCount == 2:
+            scene bedroom 
+
             menu:
                 # fairy sad
                 f "Do... you want to do anything?" 
@@ -113,10 +125,9 @@ label start:
                     call nap
                     $ napCount += 1
                     f "..."
-                    jump phase3End
+                    jump end
             
         else: # NapCount is high enough
-            f "Up up up! It's evening, and I think we should try and go to the kitchen."
             menu:
                 f "Choose whatever you wanna do!"
 
@@ -133,15 +144,19 @@ label start:
                     jump phase3End
                 
                 "Eat a snack":
+                    scene kitchen
                     jump phase3End
 
                 "Nap":
                     call nap
                     $ napCount += 1
-                    jump phase3End
+                    jump end
 
         label phase3End:
-            jump end
+            if willpower > 0:
+                jump phase3
+            else:
+                jump end
 
 
     
