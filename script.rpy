@@ -6,11 +6,8 @@ define p = Character("[name]")
 
 # Variables
 default napCount = 0
-default joy = false
 
 # Stats
-default willpower = 3
-default health = 2
 
 # Testing git
 
@@ -65,9 +62,13 @@ label start:
                 jump phase1End
         
         label phase1End:
-            jump phase2
+            if willpower > 0:
+                jump phase1
+            else:
+                jump phase2
 
     label phase2:
+
         f "Mornin' sleepyhead! You slept through the rest of the morning, hehe."
         f "It'd be a shame to stay in bed, so..."
         menu:
@@ -97,9 +98,13 @@ label start:
                 jump phase2End
 
         label phase2End:
-            call phase3
+            if willpower > 0:
+                jump phase2
+            else:
+                jump phase3
 
     label phase3:
+
         if napCount == 2:
             menu:
                 # fairy sad
@@ -111,8 +116,9 @@ label start:
                     jump phase3End
             
         else: # NapCount is high enough
+            f "Up up up! It's evening, and I think we should try and go to the kitchen."
             menu:
-                f "Alrighty, what do you want to do?"
+                f "Choose whatever you wanna do!"
 
                 "Cook":
                     scene kitchen
