@@ -4,7 +4,7 @@
 define f = Character("Fairy")
 define p = Character("[name]")
 
-$ napCount = 0;
+default napCount = 0
 
 # Testing git
 
@@ -42,25 +42,27 @@ label start:
             f "Alrighty, what do you want to do?"
 
             "Drink water":
-                jump phase1End;
+                jump phase1End
                 
             "Clean":
-                jump phase1End;
+                jump phase1End
 
             "Open window":
-                jump phase1End;
+                jump phase1End
             
             "Scroll Reels":
-                jump phase1End;
+                jump phase1End
 
             "Nap":
-                jump nap
+                call nap
                 $ napCount += 1
+                jump phase1End
         
         label phase1End:
             jump phase2
 
     label phase2:
+        f "Let's start phase 2!"
         menu:
             f "Alrighty, what do you want to do?"
 
@@ -81,14 +83,25 @@ label start:
                 jump phase2End
 
             "Nap":
-                jump nap
+                call nap
                 $ napCount += 1
+                jump phase2End
 
         label phase2End:
-            jump phase3
+            call phase3
 
     label phase3:
-        if(napCount < 2):
+        if napCount == 2:
+            menu:
+                # fairy sad
+                f "Do... you want to do anything?" 
+                "Nap":
+                    call nap
+                    $ napCount += 1
+                    f "..."
+                    jump phase3End
+            
+        else: # NapCount is too high to do anything
             menu:
                 f "Alrighty, what do you want to do?"
 
@@ -105,16 +118,10 @@ label start:
                     jump phase3End
 
                 "Nap":
-                    jump nap
+                    call nap
                     $ napCount += 1
-        else: # NapCount is too high to do anything
-            menu:
-                # fairy sad
-                f "Do... you want to do anything?" 
-                "Nap":
-                    jump nap
-                    $ napCount += 1
-                    f "..."
+                    jump phase3End
+
         label phase3End:
             jump end
 
@@ -124,7 +131,7 @@ label start:
         if(napCount == 3):
             jump badEnd
         
-        return
+    
     
     label badEnd:
         "Death shall take thee!!!!!"

@@ -8,9 +8,11 @@ label nap:
 
     "You take a nap."
     return
+    
 
 label scrollReels:
     return
+    
 
 label cleanRoom: 
     # "Roll Dice" to choose event, it's a val
@@ -27,6 +29,8 @@ label cleanRoom:
         "Event 3"
     
     return
+    
+    
 
 label shower:
     $ event = renpy.random.randint(1,3)
@@ -38,7 +42,9 @@ label shower:
         "Event 2"
     else:
         "Event 3"
+    
     return
+    
 label sink:
     $ event = renpy.random.randint(1,2)
 
@@ -47,7 +53,9 @@ label sink:
         "Event 1"
     else:
         "Event 2"
+    
     return
+    
 
 label toilet:
     $ event = renpy.random.randint(1,3)
