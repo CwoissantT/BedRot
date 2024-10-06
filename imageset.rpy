@@ -1,2 +1,2 @@
-image side neutral = "fairy neutral"
-image side disappoined = "fairy disappointed"
+image side neutral = "side fairy neutral"
+image side disappointed = "side fairy disappointed"

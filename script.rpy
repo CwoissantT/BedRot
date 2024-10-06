@@ -11,6 +11,7 @@ default peed = False
 default trauma = False
 default parched = True
 default showered = False
+default hungry = True
 
 
 # The game starts here.
@@ -39,6 +40,7 @@ label start:
     # Fairy goes into explaining how to play the game. Then we start the phase 1
     scene bedroom
     $ pp.setPhase(2, 3, 0)
+    play music "Dances and Dames.mp3"
     jump phase1
     
 
@@ -47,7 +49,7 @@ label start:
         
 
         menu:
-            f "Alrighty, what do you want to do?"
+            f neutral"Alrighty, what do you want to do?"
 
             "Drink water" if pp.willpower > 0 and parched:
                 $ parched = False
@@ -75,6 +77,7 @@ label start:
                 # Condition after character naps away
                 $ pp.maxW = pp.health - 1
                 $ pp.setPhase(pp.health, pp.maxW, 0)
+                play music "Backed Vibes (Clean).mp3"
                 jump phase2
         
         label phase1End:
@@ -92,6 +95,7 @@ label start:
                 # Condition if character does not nap away
                 $ pp.maxW = pp.health + 3
                 $ pp.setPhase(pp.health, pp.maxW, 0)
+                play music "I Knew a Guy.mp3"
                 jump phase2
 
 
@@ -101,7 +105,7 @@ label start:
         
 
         menu:
-            f "What do you wanna do?"
+            f neutral "What do you wanna do?"
 
             "Use the Restroom" if peed == False:
                 $ peed = True
@@ -142,7 +146,7 @@ label start:
                 jump phase2
             else:
                 scene bedroom
-                f "Up up up! It's evening, and I think we should try and go to the kitchen!"
+                f happy "Up up up! It's evening, and I think we should try and go to the kitchen!"
 
                 $ pp.maxW = pp.health + 3 # If character doesn't nap the phase away
                 if trauma:
@@ -152,7 +156,6 @@ label start:
 
     label phase3:
         
-        $ hungry = True
 
         if napCount == 2:
             scene bedroom 
@@ -169,7 +172,7 @@ label start:
         else: # NapCount is high enough
             show screen status_ui
             menu:
-                f "Choose whatever you wanna do!"
+                f neutral "Choose whatever you wanna do!"
 
                 "Cook" if pp.willpower > 7 and hungry:
                     scene kitchen
@@ -204,10 +207,13 @@ label start:
     
     label end:
         if(pp.joy > 5):
+            play music "In Your Arms.mp3"
             jump goodEnd
         elif(pp.health > 5):
+            play music "Jazz Brunch.mp3"
             jump midEnd
         else:
+            play music "bad ending.mp3"
             jump badEnd
         
     

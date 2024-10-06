@@ -13,6 +13,8 @@ label nap:
 label window:
     $ event = renpy.random.randint(1,3)
 
+    play sound "openWindow.wav"
+
     # Possible events
     if event == 1:
         "It's been awhile since I opened the window." 
@@ -34,10 +36,13 @@ label drinkWater:
     # Possible events
     if event == 1:
         "I wanted something to drink so I got some orange juice from the fridge. I was able to find my favorite my bluey cup!"
+        play sound "drinkingSound.mp3"
     elif event == 2:
         "My mouth feels so parched, when was the last time I drank water?"
+        play sound "drinkingSound.mp3"
     else:
-        "I got my favorite drink, Strawberry Lemonade. It tastes like summer all over again!"
+        "I got my favorite drink, Strawberry Lemonade. It tastes like summer all over again! Yum!"
+        play sound "<from 0 to 3>drinkingSound.mp3"
 
     $ pp.update(2, -1, 0)
     return
@@ -81,6 +86,7 @@ label scrollReels:
 label toilet:
     "It is time to relieve myself."
     #sfx toilet
+    play sound "<from 0 to 4> toiletFlush.mp3"
     "………………………… gross" # TODO: pause in the middle?
     "at least my bladder doesn't hurt anymore."
     $ pp.update(3, -1, 0)
@@ -93,8 +99,11 @@ label shower:
     if event == 1:
         "I needed to take a shower, finally."
         "I wanted to feel something, so I put the shower to its hottest setting. "
+        play sound "<from 0 to 2>takeShower.mp3"
     else:
-        "Letting the shower run over my body, it felt nice having my skin soak up the water around me."
+        "It felt nice having my skin soak up the warm water around me."
+        "I should do this more often!"
+        play sound "<from 0 to 2>takeShower.mp3"
     
     $ pp.update(3, -2, 0)
     
@@ -118,7 +127,7 @@ label sink:
     
 label twitter:
     $ event = renpy.random.randint(1,3)
-
+    play sound "<from 0 to 1>socialMedia.mp3"
     # Possible events
     if event == 1:
         "I saw someone I knew from high school on social media getting married."
