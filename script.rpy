@@ -31,10 +31,10 @@ label start:
 
     f "Oh! I forgot to ask, what's your name?"
 
+
     python:
         # TODO: Extra dialogue if you put in a blank string
         name = renpy.input("Your name, please!:", length=32)
-
     f "Nice to meet you formally, [name]!"
 
     p "Whatever..."
@@ -49,6 +49,7 @@ label start:
 
     label phase1:
         show screen status_ui
+        
 
         menu:
             f neutral "Alrighty, what do you want to do?"
@@ -90,16 +91,17 @@ label start:
 
                 
                 $ pp.setMaxPhase(phaseH, phaseH + pp.health, phaseJ)
-                $ pp.update(pp.maxH, pp.maxE, phaseJ)
+                $ pp.update(pp.health, pp.maxE, phaseJ)
                 jump phase2
 
 
     label phase2:
         show screen status_ui
+
         menu:
             f "What do you wanna do?"
 
-            "Use the Restroom" if peed == False && if peed :
+            "Use the Restroom" if peed == False:
                 $ peed = True
                 f "Go piss, girl!"
                 f "I'll... stay here. I won't peek, I promise!"
@@ -110,15 +112,15 @@ label start:
                 scene bathroom
                 call shower
 
-            "Wash your hair in the sink":
+            "Wash your hair in the sink" if pp.willpower > 1:
                 f "Great choice! Even if it's not good as washing your hair, it still makes you feel good!"
                 call sink
 
-            "Open the window":
+            "Open the window" if pp.willpower > 1:
                 scene bedroom
                 call window
             
-            "Go on Social Media":
+            "Go on Social Media" if pp.willpower > 1:
                 jump phase2End
 
             "Nap":
@@ -130,6 +132,7 @@ label start:
             if pp.willpower > 0:
                 jump phase2
             else:
+                scene bedroom
                 f "Up up up! It's evening, and I think we should try and go to the kitchen."
                 jump phase3
 
@@ -151,19 +154,19 @@ label start:
             menu:
                 f "Choose whatever you wanna do!"
 
-                "Cook":
+                "Cook" if pp.willpower > 4:
                     scene kitchen
                     call cook
                     
-                "Wash Dishes":
+                "Wash Dishes" if pp.willpower > 3:
                     scene kitchen
                     call dishes
 
-                "Order Takeout":
+                "Order Takeout" if pp.willpower > 2:
                     scene kitchen
                     call takeout
                 
-                "Eat a snack":
+                "Eat a snack" if pp.willpower > 2:
                     scene kitchen
                     call snack
 

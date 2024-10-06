@@ -92,9 +92,10 @@ label shower:
     if event == 1:
         "I needed to take a shower, finally."
         "I wanted to feel something, so I put the shower to its hottest setting. "
-        $ pp.update(3, -2, 0)
     else:
         "Letting the shower run over my body, it felt nice having my skin soak up the water around me."
+    
+    $ pp.update(3, -2, 0)
     
     return
     
@@ -110,7 +111,8 @@ label sink:
     else:
         "I was looking up some ways to keep my hair healthy, I heard about hair products to keep it hydrated."
         "I didn’t realize I had curly hair!!"
-    
+    $ pp.update(2, -1, 0)
+
     return
     
 label twitter:
@@ -121,13 +123,16 @@ label twitter:
         "I saw someone I knew from high school on social media getting married."
         "Meanwhile, the last thing I did was watch Jojo’s weird journey while eating cup ramen..."
         "Oh my god, am I wasting my life...?"
+        $ pp.update(-3, -100, 0)
     elif event == 2:
         "I feel as if I spent hours on Instagram just scrolling."
         "I don't know when, but I stumbled upon some cute puppies. Maybe I should get one."
+        $ pp.update(1, -1, 0)
     else:
         "I decided to put it on YouTube and just have it on in the background."
         "It was kind of relaxing to have it on in the background, like I wasn’t alone in my home."
         #TODO: f "Hey, I'm here too!!"
+        $ pp.update(1, -1, 0)
     return
 
 label cook:
@@ -137,12 +142,15 @@ label cook:
     if event == 1:
         "I wanted something to eat but only had ingredients."
         "Being forced to cook is annoying but at least I can enjoy the smell."
+        $ pp.update(6, -4, 0)
     elif event == 2:
         "I feel as if I only just started cooking before the fire alarm went off!"
         "ALL I DID WAS BOIL WATER!" # TODO: with vpunch
+        $ pp.update(2, -4, 0)
     else:
         "It’s been a while since I last cooked..."
         "Thankfully I remember how to make the homemade chili my sister taught me."
+        $ pp.update(6, -4, 0)
     return
 
 label dishes:
@@ -153,11 +161,14 @@ label dishes:
         "I got on to the dishes as they started to pile up."
         #TODO: Glass breaking sfx
         "One of them slipped and broke on the floor. Now I'm in danger of having blood all over the floor."
+        $ pp.update(2, -3, 0)
     elif event == 2:
         "The dishes I have just kept piling up, I sometimes ask myself where they come from as there's so many."
+        $ pp.update(3, -3, 0)
     else:
         "I really didn't want to do the dishes today as it was starting to rise higher than the sink."
         "... So I didn't, and just let the dishwasher do all the work."
+        $ pp.update(4, -2, 0)
     return
 
 label takeout:
@@ -171,8 +182,10 @@ label takeout:
         "I saw I had a little spending money left and there was a 2-for-1 deal at Baco Tell."
         "My toilet will have a field day tomorrow. ^-^"
     else:
-        "I wanted to try some Wendy’s from doordash. My sandwich had a whole bite taken out of it..."
+        "I wanted to try some Bendy’s from doordash. My sandwich had a whole bite taken out of it..."
         #TODO: f "That was me, sorry..."
+
+        $ pp.update(3, -2, 0)
     return
 
 label snack:
