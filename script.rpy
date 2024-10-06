@@ -137,6 +137,7 @@ label start:
                 jump phase3
 
     label phase3:
+        $ hungry = Talse
 
         if napCount == 2:
             scene bedroom 
@@ -154,7 +155,7 @@ label start:
             menu:
                 f "Choose whatever you wanna do!"
 
-                "Cook" if pp.willpower > 4:
+                "Cook" if pp.willpower > 4 and hungry:
                     scene kitchen
                     call cook
                     
@@ -162,7 +163,7 @@ label start:
                     scene kitchen
                     call dishes
 
-                "Order Takeout" if pp.willpower > 2:
+                "Order Takeout" if pp.willpower > 2 and hungry:
                     scene kitchen
                     call takeout
                 
@@ -186,7 +187,7 @@ label start:
     label end:
         if(napCount == 3):
             jump badEnd
-        elif(p.joy > 5):
+        elif(pp.joy > 5):
             jump goodEnd
         else:
             jump midEnd

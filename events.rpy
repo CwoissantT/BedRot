@@ -142,15 +142,15 @@ label cook:
     if event == 1:
         "I wanted something to eat but only had ingredients."
         "Being forced to cook is annoying but at least I can enjoy the smell."
-        $ pp.update(6, -4, 0)
+        $ pp.update(6, -4, 3)
     elif event == 2:
         "I feel as if I only just started cooking before the fire alarm went off!"
         "ALL I DID WAS BOIL WATER!" # TODO: with vpunch
-        $ pp.update(2, -4, 0)
+        $ pp.update(2, -4, 2)
     else:
         "It’s been a while since I last cooked..."
         "Thankfully I remember how to make the homemade chili my sister taught me."
-        $ pp.update(6, -4, 0)
+        $ pp.update(6, -4, 4)
     return
 
 label dishes:
@@ -185,7 +185,7 @@ label takeout:
         "I wanted to try some Bendy’s from doordash. My sandwich had a whole bite taken out of it..."
         #TODO: f "That was me, sorry..."
 
-        $ pp.update(3, -2, 0)
+        $ pp.update(3, -2, 1)
     return
 
 label snack:
