@@ -1,12 +1,13 @@
 ﻿# The script of the game goes in this file.
 
 
-define f = Character("Fairy")
+define f = Character("Fairy", image="fairy")
 define p = Character("[name]")
 define pp = MC(p, 2, 3, 0)
 
 # Variables
 default napCount = 0 
+default peed = False
 
 default phaseH = 15
 default phaseW = 3
@@ -18,8 +19,6 @@ default phaseJ = 0
 
 label start:
 
-    $ drank_water = False
-
     # Show a background. This uses a placeholder by default, but you can
     # add a file (named either "bg room.png" or "bg room.jpg") to the
     # images directory to show it.
@@ -28,7 +27,7 @@ label start:
 
     # MEET DA FAIRY 
 
-    show eileen happy
+    
 
     f "Oh! I forgot to ask, what's your name?"
 
@@ -43,30 +42,34 @@ label start:
 
     # Fairy goes into explaining how to play the game. Then we start the phase 1
     $ pp.setMaxPhase(phaseH, phaseW, phaseJ)
+    $ pp.update(2, phaseW, phaseJ)
+    scene bedroom
     jump phase1
     
 
     label phase1:
-        scene bedroom
         show screen status_ui
 
         menu:
-            f "Alrighty, what do you want to do?"
+            f neutral "Alrighty, what do you want to do?"
 
-            "Drink water":
-                $ drank_water = True
+            "Drink water" if pp.willpower > 1:
+                f "Oh, you're thirsty aren't you?"
+                f "Now... what is there to drink around here...?"
                 call drinkWater
                 
-            "Clean":
-                jump phase1End
+            "Clean" if pp.willpower > 2:
+                f "Oh, you're going to clean? That's a great idea!"
+                call cleanRoom
 
-            "Open window":
-                jump phase1End
+            "Open window" if pp.willpower > 1:
+                f "..."
+                call window
             
-            "Scroll Reels":
-                f "... Are you sure? I mean, you could always-"
+            "Scroll Reels" if pp.willpower > 1:
+                f shy "... Are you sure? I mean, you could always-"
                 p "I'm fine."
-                
+
                 call scrollReels
 
             "Nap":
@@ -86,8 +89,8 @@ label start:
                 f "It'd be a shame to stay in bed, so..."
 
                 
-                $ pp.setMaxPhase(phaseH, phaseH + pp.health, maxJ)
-                $ pp.update(pp.maxH, pp.maxE, maxJ)
+                $ pp.setMaxPhase(phaseH, phaseH + pp.health, phaseJ)
+                $ pp.update(pp.maxH, pp.maxE, phaseJ)
                 jump phase2
 
 
@@ -96,25 +99,26 @@ label start:
         menu:
             f "What do you wanna do?"
 
-            "Use the Restroom":
+            "Use the Restroom" if peed == False && if peed :
+                $ peed = True
                 f "Go piss, girl!"
                 f "I'll... stay here. I won't peek, I promise!"
                 scene bathroom
-                jump phase2End
+                call toilet
                 
-            "Take a Shower":
+            "Take a Shower" if pp.willpower >= 2:
                 scene bathroom
-                jump phase2End
+                call shower
 
             "Wash your hair in the sink":
                 f "Great choice! Even if it's not good as washing your hair, it still makes you feel good!"
-                jump phase2End
+                call sink
 
             "Open the window":
                 scene bedroom
-                jump phase2End
+                call window
             
-            "Vent on Twitter":
+            "Go on Social Media":
                 jump phase2End
 
             "Nap":
@@ -149,19 +153,19 @@ label start:
 
                 "Cook":
                     scene kitchen
-                    jump phase3End
+                    call cook
                     
                 "Wash Dishes":
                     scene kitchen
-                    jump phase3End
+                    call dishes
 
                 "Order Takeout":
                     scene kitchen
-                    jump phase3End
+                    call takeout
                 
                 "Eat a snack":
                     scene kitchen
-                    jump phase3End
+                    call snack
 
                 "Nap":
                     call nap
@@ -186,11 +190,32 @@ label start:
         
     
     label goodEnd:
+        f "You're starting to see the good in the little things!"
+        f "The weight that you used to feel just cleaning your room is gone."
+        f "You start working on the goals you’ve been putting off, and you always look forward to facing new challenges."
+
+        f "Ah... I'm so proud of you, [name]!"
+        f "I just know you'll find yourself in a better place, soon. Take care!"
         return
     label badEnd:
-        "Death shall take thee!!!!!"
+        "It\'s over…… it\'s finally over. I dont need to struggle anymore."
+        "The numbness will be gone soon and I can be at peace."
+        f "No, no! Please- don't disappear, [name]! You can still go on..."
+
+        "I'm so tired..."
+        "..."
+        "If I could do it all over again, I\’d try again, I\’d try harder and do my best."
+        "Next time, next time I\'ll do better... But for now, it\'s over." 
+        f "*Sniffle* ..."
+        f "You... can rest now, then..."
+
         return
     label midEnd:
+        f "... The end!"
+        f "Life feels just that bit easier."
+        f "You still struggle, just not as much." 
+        f "Even if you'll have your ups and downs, but you are definitely on the right path!"
+        f "You don’t know what challenges life will bring... but you look at them with less negativity."
         return
     # This ends the game.
     return
