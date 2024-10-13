@@ -1,12 +1,12 @@
 1) Bugs:
 - Stats are shared between saves. Should be fixed first
 - You can open the window infinitely
-	- The window also does not open 
-- 
+	- The window also does not open when you open it
+- Most of the sfx are broken. We should really fix them.
 
 2) Optimizations
-- Should have a label for the start of each day (maybe an if-statement that decides what you do each time you wake up?), separate from gameplay
-- Make the game mechanics thought out a little better
+- Should have a label for the start of each day (maybe an if-statement that decides what you do each time you wake up?), separate from gameplay sections
+- General Game Balancing stuff
 
 3) Cookie Features:
 - Replace menu items with clickable buttons on screen
@@ -14,5 +14,13 @@
 - Replace GUI
 - Replace font
 - Replace art and placeholders
+	- Room should be messy. My room is very messy
+	- Ending cutscenes should have better art and not look like I sketched them in 5 minutes
+	- Redesign the fairy (Mostly her outfit I think her hair looks cute enough)
 - Pee health bonus if you drank water before going to the bathroom (mention it in dialogue too)
 - Have some events that are inspired by You feel like shit.
+	- Reminders to take meds
+	- Grounding exercises for anxiety
+	- etc.
+- Cutscene for opening the window. 
+- Transitions between different fairy expressions LOL, maybe make her move around or have an idle animation
