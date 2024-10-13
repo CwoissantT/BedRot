@@ -49,6 +49,9 @@ label start:
     python:
         # TODO: Extra dialogue if you put in a blank string
         name = renpy.input("Your name, please!:", length=32)
+    
+    # if(name == ""): 
+
     show fairy happy
     f "Nice to meet you formally, [name]!"
 
